@@ -4,6 +4,7 @@ import "./Home.css";
 import { FaSun, FaMoon, FaCode } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const Home = () => {
   const [theme, setTheme] = useState('black-theme');
@@ -20,6 +21,7 @@ const Home = () => {
     e.preventDefault();
     const id = uuidv4();
     setRoomId(id); 
+    toast.success("created new room")
   }
 
   return (
