@@ -5,8 +5,10 @@ import { FaSun, FaMoon, FaCode } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const navigate= useNavigate();
   const [theme, setTheme] = useState('black-theme');
 
   const changeTheme = () => {
@@ -22,6 +24,29 @@ const Home = () => {
     const id = uuidv4();
     setRoomId(id); 
     toast.success("created new room")
+
+  }
+  const joinRoom=()=>{
+    if(roomId.trim()==="" || username.trim()===""){
+        toast.error("please fill all the fields")
+        }
+    else{
+            navigate(`/editor/${roomId}`, { state: { username } });
+            }
+  }
+
+  const handleEnter = (e)=>{
+
+
+    //both are ok key and code  
+
+
+    // console.log(e.code,"code")
+    // console.log(e.key,"key")
+
+    if(e.key === "Enter"){
+        joinRoom();
+        }
   }
 
   return (
@@ -48,17 +73,32 @@ const Home = () => {
             <h2>Paste Invitation ROOM ID</h2>
             <br />
                 <div>
-                    <input type="text"  onChange={(e)=>setRoomId(e.target.value)}  value={roomId} className=" font-medium bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ROOM ID" required />
+                    <input type="text"  
+                    onChange={(e)=>setRoomId(e.target.value)} 
+                     value={roomId}
+                      className=" font-medium bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                      placeholder="ROOM ID"
+                       required
+                       onKeyUp={handleEnter} />
                 
-                    <input type="text"  onChange={(e)=>setUsername(e.target.value)}  value={username} className=" font-medium bg-gray-50 border border-gray-300 mt-3 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="USERNAME" required />
+                    <input type="text" 
+                     onChange={(e)=>setUsername(e.target.value)} 
+                      value={username}
+                       className=" font-medium bg-gray-50 border border-gray-300 mt-3 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                       placeholder="USERNAME" 
+                       required 
+                       onKeyUp={handleEnter} />
                 </div>
             
            
            
             
-            <Link to={"/"} className="button  rounded-2xl ">
+            <button  onClick={joinRoom} className="button font-semibold  rounded-2xl ">
+              Join 
+            </button>
+            {/* <Link  onClick={joinRoom} className="button bg-black py-3 px-7 mt-3 rounded-2xl ">
               Join
-            </Link>
+            </Link> */}
             <p>If you don&#39;t have an invite create <button  onClick={createNewRoom} className='text-green-800 underline'>new room</button> </p>
           </div>
         </div>
