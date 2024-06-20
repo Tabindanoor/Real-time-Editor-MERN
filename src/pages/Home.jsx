@@ -3,7 +3,6 @@ import { useState } from 'react';
 import "./Home.css";
 import { FaSun, FaMoon, FaCode } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
-import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
@@ -96,9 +95,7 @@ const Home = () => {
             <button  onClick={joinRoom} className="button font-semibold  rounded-2xl ">
               Join 
             </button>
-            {/* <Link  onClick={joinRoom} className="button bg-black py-3 px-7 mt-3 rounded-2xl ">
-              Join
-            </Link> */}
+            
             <p>If you don&#39;t have an invite create <button  onClick={createNewRoom} className='text-green-800 underline'>new room</button> </p>
           </div>
         </div>
