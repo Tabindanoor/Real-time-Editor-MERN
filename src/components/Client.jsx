@@ -5,6 +5,17 @@ const Client = ({username}) => {
     console.log(username)
   return (
     <div>
+
+        {username.map((user)=>{
+          return(
+            <div>
+              <p>
+                {user}
+                </p>
+            </div>
+          )
+        })}
+
     </div>
   )
 }
