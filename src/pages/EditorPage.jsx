@@ -10,6 +10,8 @@ const EditorPage = () => {
     { id: 2, name: "Talha Muslim", age: 30 },
     { id: 3, name: "Uroosa Muslim", age: 35 },
   ]);
+  const [code, setCode] = useState("//code here ");
+
 
   return (
     <div className="flex md:flex-row flex-col h-screen text-gray-200">
@@ -37,7 +39,7 @@ const EditorPage = () => {
 
       <div className=" w-full md:w-[80%] bg-gray-800 p-5">
 
-          <Editor/>
+          <Editor value={code} onChange={setCode} />
 
       </div>
     </div>
