@@ -95,7 +95,9 @@ const Editor = ({ value, onChange }) => {
     }
   }, [value]);
 
-  return <div ref={editorRef} style={{ height: '100vh', width: '100%' }}></div>;
+  return <div ref={editorRef} ></div>;
+  // hright and width controllled
+//   style={{ height: '100vh', width: '100%' }}
 };
 
 export default Editor;
