@@ -46,6 +46,6 @@ const Client = ({ username }) => {
       </Stack>
     </div>
   );
-}
+} 
 
 export default Client;

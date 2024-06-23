@@ -9,6 +9,6 @@ export const initSocket=async()=>{
 
     }
 
-    return io("http://localhost:5000",options)
+    return io("http://localhost:3000/",options)
 
-}
+} 

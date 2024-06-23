@@ -51,7 +51,7 @@ const Home = () => {
     <div className={`${theme}  text-center`}  >
         <div>
 
-       
+        
       <div id="switch" onClick={changeTheme}>
         {theme === 'black-theme' ? <FaSun clas /> : <FaMoon />}
       </div>

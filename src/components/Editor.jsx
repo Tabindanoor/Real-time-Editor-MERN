@@ -8,7 +8,7 @@ const Editor = ({ value, onChange }) => {
   const editorRef = useRef(null);
   const editorViewRef = useRef(null);
 
-  useEffect(() => {
+  useEffect(() => { 
     if (editorRef.current) {
       const startState = EditorState.create({
         doc: value,
@@ -49,8 +49,7 @@ const Editor = ({ value, onChange }) => {
   }, [value]);
 
   return <div ref={editorRef}  className='overflow-hidden relative '></div>;
-  // hright and width controllled
-//   style={{ height: '100vh', width: '100%' }}
+  
 };
 
 export default Editor;

@@ -6,9 +6,11 @@ const server = http.createServer(app)
 const io = new Server(server)
 
 io.on('connection',(socket)=>{
-    console.log('new connection established',socket.id)
+    console.log('socket connection established',socket.id)
 })
 
-app.listen(5000, ()=>{
-    console.log('Server is running on port 5000')
+
+
+server.listen(3000, ()=>{
+    console.log('Server is running on port 3000')
 })

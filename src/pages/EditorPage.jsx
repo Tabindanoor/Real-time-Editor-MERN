@@ -1,17 +1,38 @@
 import { FaCode } from "react-icons/fa";
 // import code from "../assets/Code.png";
 import Client from "../components/Client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Editor from "../components/Editor";
-
+import { initSocket } from "../socket";
+import { Actions } from "../../Actions";
+import { useLocation } from "react-router-dom";
 const EditorPage = () => {
+
+  const socketRef = useRef(null);
+const location = useLocation()
+  useEffect(() => {
+    const init =async()=>{
+      socketRef.current = await initSocket();
+      // socketRef.current.emit(Actions.JOIN,{
+      //   roomId,
+      //   username:location.state?.username
+        
+      // })
+
+    }
+    init();
+
+  }, [])
+  
+
+
   const [cleints, setCleints] = useState([
     { id: 1, name: "Tabinda Noor", age: 25 },
     { id: 2, name: "Talha Muslim", age: 30 },
     { id: 3, name: "Uroosa Muslim", age: 35 },
   ]);
   const [code, setCode] = useState("//code here ");
-
+ 
 
   return (
     <div className="flex md:flex-row flex-col h-screen text-gray-200">
