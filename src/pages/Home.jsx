@@ -37,9 +37,8 @@ const Home = () => {
   const handleEnter = (e)=>{
 
 
-    //both are ok key and code  
-
-
+    //both are ok key and code
+     
     // console.log(e.code,"code")
     // console.log(e.key,"key")
 
