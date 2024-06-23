@@ -30,7 +30,7 @@ const Home = () => {
         toast.error("please fill all the fields")
         }
     else{
-            navigate(`/editor/${roomId}`, { state: { username } });
+            navigate(`/editor/${roomId}`, { state: { username , roomId} });
             }
   }
 

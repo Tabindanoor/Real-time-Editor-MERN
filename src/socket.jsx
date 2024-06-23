@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-
+// the main function to create a socket connection
 export const initSocket=async()=>{
     const options ={
         "force new connection" : true,

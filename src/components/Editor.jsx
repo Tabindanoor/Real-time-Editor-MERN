@@ -4,6 +4,7 @@ import { EditorState } from '@codemirror/state';
 import { javascript } from '@codemirror/lang-javascript';
 import { autocompletion } from '@codemirror/autocomplete';
 
+
 const Editor = ({ value, onChange }) => {
   const editorRef = useRef(null);
   const editorViewRef = useRef(null);
@@ -48,7 +49,7 @@ const Editor = ({ value, onChange }) => {
     }
   }, [value]);
 
-  return <div ref={editorRef}  className='overflow-hidden relative '></div>;
+  return <div ref={editorRef}  className='overflow-hidden relative  '></div>;
   
 };
 
