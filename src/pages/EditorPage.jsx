@@ -1,6 +1,6 @@
 import { FaCode } from "react-icons/fa";
 import Client from "../components/Client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Editor from "../components/Editor";
 import { initSocket } from "../socket";
 import { Actions } from "../../Actions";
@@ -13,22 +13,29 @@ const EditorPage = () => {
   const reactNavigator = useNavigate();
 
   const [clients, setClients] = useState([]);
-  const [code, setCode] = useState("//code here ");
-  const handleError = (err) => {
-    console.log("socket error", err);
-    toast.error("Connection failed, Try Again");
-    reactNavigator("/");
-  }; 
 
+
+
+
+
+  const [code, setCode] = useState("//code here ");
+  
+console.log(clients,"ye haun")
   useEffect(() => {
     const init = async () => {
       socketRef.current = await initSocket();
 
+      const handleError = (err) => {
+        console.log("socket error", err);
+        toast.error("Connection failed, Try Again");
+        reactNavigator("/");      }; 
 
       socketRef.current.on('connect_error', handleError);
       socketRef.current.on('connect_failed', handleError);
 
 
+
+        // emitting join actions
       socketRef.current.emit(Actions.JOIN, {
         roomId: location.state.roomId,
         username: location.state?.username
@@ -37,8 +44,8 @@ const EditorPage = () => {
 
       // listening for joined event
       socketRef.current.on(Actions.JOINED, ({ clients, username, socketId }) => {
-        if (username !== location.state?.username) {
-          toast.success(`${username} has joined the room`);
+        if (username !== location.state?.username) 
+          {          toast.success(`${username} has joined the room ${socketId}`);
         }
         setClients(clients);
       });
@@ -56,6 +63,8 @@ const EditorPage = () => {
 
     };
 
+   
+
     init();
   }, []);
 
@@ -70,9 +79,12 @@ const EditorPage = () => {
           <h1 className="font-serif font-semibold text-xl">Let&#39;s Collab</h1>
           <FaCode className="w-24 my-2 h-20 justify-center mx-auto" />
           <h1>Connected</h1>
-          {clients.map((user) => (
+          {clients.map((user) => 
+         
+          (
             <div key={user.socketId} className="flex justify-between my-2">
-              <Client username={user.username} />
+              <Client username={user.username}  />
+              <p>{user.socketId}</p>
             </div>
           ))}
         </div>
@@ -93,6 +105,4 @@ const EditorPage = () => {
     </div>
   );
 };
-
 export default EditorPage;
-
