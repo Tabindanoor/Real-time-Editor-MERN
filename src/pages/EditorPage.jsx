@@ -44,6 +44,7 @@ console.log(clients,"ye haun")
 
       // listening for joined event
       socketRef.current.on(Actions.JOINED, ({ clients, username, socketId }) => {
+        console.log(clients, username, socketId, "joined")
         if (username !== location.state?.username) 
           {        
              toast.success(`${username} has joined the room `);
@@ -54,6 +55,8 @@ console.log(clients,"ye haun")
       // listening for diconnecting room event
       socketRef.current.on(Actions.DISCONNECTED,({socketId, username})=>{
         // console.log(username, "why undefined")
+        console.log(username, socketId, "disconnect")
+
         toast.success(`${username} left the room`);
         setClients((pre)=>{
           return pre.filter((client)=>client.socketId!==socketId)
