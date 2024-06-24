@@ -45,14 +45,15 @@ console.log(clients,"ye haun")
       // listening for joined event
       socketRef.current.on(Actions.JOINED, ({ clients, username, socketId }) => {
         if (username !== location.state?.username) 
-          {          toast.success(`${username} has joined the room ${socketId}`);
-        }
+          {        
+             toast.success(`${username} has joined the room `);
+          }
         setClients(clients);
       });
 
       // listening for diconnecting room event
       socketRef.current.on(Actions.DISCONNECTED,({socketId, username})=>{
-        console.log(username, "why undefined")
+        // console.log(username, "why undefined")
         toast.success(`${username} left the room`);
         setClients((pre)=>{
           return pre.filter((client)=>client.socketId!==socketId)
