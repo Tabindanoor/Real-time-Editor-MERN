@@ -20,7 +20,7 @@ const EditorPage = () => {
 
   const [code, setCode] = useState("//code here ");
   
-console.log(clients,"ye haun")
+// console.log(clients,"ye haun")
   useEffect(() => {
     const init = async () => {
       socketRef.current = await initSocket();
@@ -61,15 +61,19 @@ console.log(clients,"ye haun")
         setClients((pre)=>{
           return pre.filter((client)=>client.socketId!==socketId)
         })
-        reactNavigator("/");
       
       })
 
     };
 
-   
-
+  
     init();
+    // return ()=>{
+    //   socketRef.current.disconnect();
+    //   socketRef.current.off(Actions.JOINED)
+    //   socketRef.current.off(Actions.DISCONNECTED)
+    //  }
+  
   }, []);
 
   if (!location.state) {

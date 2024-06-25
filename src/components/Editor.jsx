@@ -18,7 +18,9 @@ const Editor = ({ value, onChange }) => {
           javascript(),
           autocompletion(),
           EditorView.updateListener.of((v) => {
-            if (v.docChanged) {
+            console.log(v,"dont know the listner");
+            if (v.docChanged) 
+              {
               onChange(v.state.doc.toString());
             }
           }),
@@ -30,6 +32,7 @@ const Editor = ({ value, onChange }) => {
         parent: editorRef.current,
       });
     }
+
 
     return () => {
       if (editorViewRef.current) {
