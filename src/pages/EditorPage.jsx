@@ -119,11 +119,15 @@
 //   );
 // };
 // export default EditorPage;
+
+
 import { FaCode } from "react-icons/fa";
 import Client from "../components/Client";
 import { useEffect, useRef, useState } from "react";
 import Editor from "../components/Editor";
 import { initSocket } from "../socket";
+import { io } from "socket.io-client";
+
 import { Actions } from "../../Actions";
 import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -138,7 +142,15 @@ const EditorPage = () => {
 
     useEffect(() => {
         const init = async () => {
-            socketRef.current = await initSocket();
+            // socketRef.current = await initSocket();
+
+            socketRef.current = io('http://localhost:3000', {
+                'force new connection': true,
+                reconnectionAttempts: 'Infinity',
+                timeout: 10000,
+                transports: ['websocket'],
+              });
+            
 
             const handleError = (err) => {
                 console.log("socket error", err);
@@ -173,11 +185,7 @@ const EditorPage = () => {
         //   socketRef.current.off(Actions.JOIN);
         //   socketRef.current.off(Actions.DISCONNECTED);
         // }
-    }, 
-    // this change made
-    []
-    // [id, location.state, reactNavigator]
-  );
+    }, []);
 
 
 

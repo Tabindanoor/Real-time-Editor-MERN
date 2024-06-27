@@ -87,32 +87,33 @@
 // server.listen(3000, ()=>{
 //     console.log('Server is running on port 3000')
 // })
-import express from 'express';
-import http from 'http';
-import { Server } from 'socket.io';
-import { Actions } from './Actions.js';
 
-const app = express();
+import express from 'express'
+import http from 'http'
+import { Server } from 'socket.io'
+import { Actions } from './Actions.js'
+const app = express()
 const server = http.createServer(app);
 const io = new Server(server);
 
 const userSocketMap = {};
-const getAllConnectedClients = (roomId) => {
-    return Array.from(io.sockets.adapter.rooms.get(roomId) || []).map((socketId) => {
-        return {
-            socketId,
-            username: userSocketMap[socketId]
-        };
-    });
-};
+
+function getAllConnectedClients(roomId) {
+    return Array.from(io.sockets.adapter.rooms.get(roomId) || []).map(
+        (socketId) => {
+            return {
+                socketId,
+                username: userSocketMap[socketId],
+            };
+        }
+    );
+}
 
 io.on('connection', (socket) => {
-    console.log('socket connecti on established', socket.id);
+    console.log('socket connected', socket.id);
 
     socket.on(Actions.JOIN, ({ roomId, username }) => {
-        console.log(`User ${username} joined room ${roomId}`);
         const existingSocketName = Object.keys(userSocketMap).find((key) => userSocketMap[key] === username);
-
         if (existingSocketName) {
             socket.emit('error', { message: 'Username already taken' });
             socket.disconnect(true);
@@ -123,44 +124,34 @@ io.on('connection', (socket) => {
         socket.join(roomId);
         const clients = getAllConnectedClients(roomId);
         clients.forEach(({ socketId }) => {
-          // notify to all the users who are connected
             io.to(socketId).emit(Actions.JOINED, {
                 clients,
                 username,
-                socketId: socket.id
+                socketId: socket.id,
             });
         });
-
-        // Emit current code to the newly joined user
-        const currentCode = ''; // Fetch current code from your storage or state if available
-        socket.emit(Actions.CODE_CHANGE, { code: currentCode });
     });
 
     socket.on(Actions.CODE_CHANGE, ({ roomId, code }) => {
-        console.log(`Code change in room ${roomId}:`, code);
-        socket.to(roomId).emit(Actions.CODE_CHANGE, { code });
+        socket.in(roomId).emit(Actions.CODE_CHANGE, { code });
+    });
+
+    socket.on(Actions.SYNC_CODE, ({ socketId, code }) => {
+        io.to(socketId).emit(Actions.CODE_CHANGE, { code });
     });
 
     socket.on('disconnecting', () => {
-        console.log('socket disconnection');
         const rooms = [...socket.rooms];
         rooms.forEach((roomId) => {
-            socket.to(roomId).emit(Actions.DISCONNECTED, {
+            socket.in(roomId).emit(Actions.DISCONNECTED, {
                 socketId: socket.id,
-                username: userSocketMap[socket.id]
+                username: userSocketMap[socket.id],
             });
         });
         delete userSocketMap[socket.id];
-        // socket.leave();
+        socket.leave();
     });
-
-    // socket.on('disconnect', () => {
-    //     console.log('socket disconnected');
-    // });
 });
 
-const PORT= 3000
-
-server.listen(process.env.PORT || 3000, () => {
-    console.log('Server is running on port 3000');
-});
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
