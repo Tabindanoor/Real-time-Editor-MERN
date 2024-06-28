@@ -8,8 +8,10 @@ import 'codemirror/addon/edit/closebrackets';
 import PropTypes from 'prop-types';
 import { Actions } from '../../Actions';
 
-const Editor = ({ socketRef, roomId, onCodeChange }) => {
-    console.log(onCodeChange,"code change")
+const Editor = ({ socketRef, roomId,
+    //  onCodeChange
+     }) => {
+    // console.log(onCodeChange,"code change")
     const editorRef = useRef(null);
     useEffect(() => {
         async function init() {
@@ -29,8 +31,8 @@ const Editor = ({ socketRef, roomId, onCodeChange }) => {
                 const { origin } = changes;
                 const code = instance.getValue();
 
-
-                onCodeChange(code)
+                console.log(code,"code here ")
+                // onCodeChange(code)
 
                 if (origin !== 'setValue') {
                     socketRef.current.emit(Actions.CODE_CHANGE, {
@@ -55,7 +57,7 @@ const Editor = ({ socketRef, roomId, onCodeChange }) => {
     useEffect(() => {
         if (socketRef.current) {
             socketRef.current.on(Actions.CODE_CHANGE, ({ code }) => {
-                if (editorRef.current && code !== editorRef.current.getValue()) {
+                if (editorRef.current && code &&  code!==null && code !== editorRef.current.getValue()) {
                     editorRef.current.setValue(code);
                 }
             });

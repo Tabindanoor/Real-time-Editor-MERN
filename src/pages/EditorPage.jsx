@@ -49,9 +49,12 @@ const EditorPage = () => {
                     toast.success(`${username} has joined the room `);
                 }
                 setClients(clients);
-                socketRef.current.emit(Actions.SYNC_CODE,{
-                    code :  codeRef.current,
-                    socketId})
+
+                // socketRef.current.emit(Actions.SYNC_CODE,{
+                //     code :  codeRef.current,
+                //     socketId})
+                //     console.log("code current",codeRef.current)
+                
                        });
 
             socketRef.current.on(Actions.DISCONNECTED, ({ socketId, username }) => {
@@ -114,9 +117,10 @@ const EditorPage = () => {
 
             <div className="w-full h-full lg:w-[80%] bg-gray-800 p-5">
                 <Editor socketRef={socketRef} roomId={id} 
-                onCodeChange={(code)=>{
-                    codeRef.current= code
-                }} />
+                // onCodeChange={(code)=>{
+                //     codeRef.current= code
+                // }} 
+                />
             </div>
         </div>
     );

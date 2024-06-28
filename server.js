@@ -2,8 +2,8 @@ import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import { Actions } from './Actions.js';
-import path from 'path';
-import { fileURLToPath } from 'url';
+// import path from 'path';
+// import { fileURLToPath } from 'url';
 
 const app = express();
 const server = http.createServer(app);
@@ -39,19 +39,18 @@ io.on('connection', (socket) => {
 
     socket.on(Actions.JOIN, ({ roomId, username }) => {
        console.log(roomId,"room id")
-        const existingSocketId = Object.keys(userSocketMap).find(
-            (key) => userSocketMap[key] === username
-        );
 
-        // If the user already exists, remove the old socket and join with the new one
-        if (existingSocketId) {
-            console.log(`Removing old socket ${existingSocketId} for user ${username}`);
-            io.sockets.sockets.get(existingSocketId).leave(roomId);
-            delete userSocketMap[existingSocketId];
-        }
+        // const existingSocketId = Object.keys(userSocketMap).find(
+        //     (key) => userSocketMap[key] === username
+        // );
 
-        
-       
+        // // If the user already exists, remove the old socket and join with the new one
+        // if (existingSocketId) {
+        //     console.log(`Removing old socket ${existingSocketId} for user ${username}`);
+        //     io.sockets.sockets.get(existingSocketId).leave(roomId);
+        //     delete userSocketMap[existingSocketId];
+        // }
+
         console.log(roomId,"room id generated")
         userSocketMap[socket.id] = username;
         socket.join(roomId);
@@ -65,14 +64,31 @@ io.on('connection', (socket) => {
         });
     });
 
+
+    
+   
+
+
+    
+
+
     socket.on(Actions.CODE_CHANGE, ({ roomId, code }) => {
         console.log("receiving or not", code);
         socket.in(roomId).emit(Actions.CODE_CHANGE, { code });
     });
 
-    socket.on(Actions.SYNC_CODE, ({ socketId, code }) => {
-        io.to(socketId).emit(Actions.CODE_CHANGE, { code });
-    });
+
+    // sync code
+
+    // socket.on(Actions.SYNC_CODE, ({ socketId, code }) => {
+    //     console.log("syncing the code here",code)
+    //     io.to(socketId).emit(Actions.CODE_CHANGE, { code });
+
+    // });
+  
+
+    // disocnnect
+
 
     socket.on('disconnecting', () => {
         const rooms = [...socket.rooms];
@@ -85,6 +101,10 @@ io.on('connection', (socket) => {
         delete userSocketMap[socket.id];
         socket.leave();
     });
+
+    
+
+  
 });
 
 const PORT =  3000;
