@@ -68,7 +68,7 @@ const Editor = ({ socketRef, roomId, onCodeChange }) => {
         }
     }, [socketRef]);
 
-    return <textarea id="realtimeEditor" className="flex-1 h-[100%] resize-none direction-ltr"></textarea>;
+    return <textarea id="realtimeEditor" className="flex-1 w-full h-[100%] resize-none direction-ltr"></textarea>;
 };
 
 Editor.propTypes = {

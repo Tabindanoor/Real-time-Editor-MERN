@@ -10,16 +10,16 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 // doing things for deployement
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
-// Serve static files from the 'dist' directory
-app.use(express.static('dist'));
+// // Serve static files from the 'dist' directory
+// app.use(express.static(path.join(__dirname, 'dist')));
 
-// Serve index.html for all routes to enable client-side routing
-app.use((req, res, next) => {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
+// // Serve index.html for all other routes
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+// });
 
 
 
