@@ -10,7 +10,7 @@ const Client = ({ username }) => {
       className='mr-2  text-center '
 
        />
-       <p className='mt-2'>{username}</p>
+       <p className='mt-3'>{username}</p>
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import { BrowserRouter  } from 'react-router-dom'
 import { Routes } from 'react-router-dom'
 import { Route } from 'react-router-dom'
-import './App.css'
 import Home from './pages/Home'
 import EditorPage from './pages/EditorPage'
 import { Toaster } from 'react-hot-toast'

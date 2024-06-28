@@ -89,10 +89,10 @@ const EditorPage = () => {
     }
 
     return (
-        <div className="flex md:flex-row flex-col h-screen text-gray-200">
-            <div className="w-full md:w-[20%] bg-gray-900 p-5 flex flex-col justify-between">
+        <div className="flex lg:flex-row flex-col h-screen text-gray-200">
+            <div className="w-full lg:w-[20%] bg-gray-900 p-5 flex flex-col justify-between">
                 <div>
-                    <h1 className="font-serif font-semibold text-xl">Let's Collab</h1>
+                    <h1 className="font-serif font-semibold text-xl">Let&#39;s Collab</h1>
                     <FaCode className="w-24 my-2 h-20 justify-center mx-auto" />
                     <h1>Connected</h1>
                     {clients.map((user) => (
@@ -112,7 +112,7 @@ const EditorPage = () => {
                 </div>
             </div>
 
-            <div className="w-full md:w-[80%] bg-gray-800 p-5">
+            <div className="w-full h-full lg:w-[80%] bg-gray-800 p-5">
                 <Editor socketRef={socketRef} roomId={id} 
                 onCodeChange={(code)=>{
                     codeRef.current= code

@@ -5,7 +5,7 @@ import { FaSun, FaMoon, FaCode } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-
+import homeForm from "../assets/homeForm.jpg"
 const Home = () => {
   const navigate= useNavigate();
   const [theme, setTheme] = useState('black-theme');
@@ -59,7 +59,7 @@ const Home = () => {
         <div className="card">
           <div className="card__top">
             <img
-              src="https://cdn.pixabay.com/photo/2016/10/26/23/24/colors-1772977_1280.jpg"
+              src={homeForm}
               alt="Sky"
             />
             <div className="profile__photo  w-24 h-24 rounded-full ">
